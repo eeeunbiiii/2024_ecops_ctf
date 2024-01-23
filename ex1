@@ -23,7 +23,7 @@ int h(int* f, size_t size) {
         do{
             randomValue1 = rand();
             randomValue2 = rand();
-        } while (randomValue1 == randomValue2)
+        } while (randomValue1 == randomValue2);
         
         f[i] = f[i] ^ randomValue1 ^ randomValue2;
     }
