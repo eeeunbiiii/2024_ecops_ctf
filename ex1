@@ -19,8 +19,12 @@ int h(int* f, size_t size) {
     srand(time(NULL));
 
     for (size_t i = 0; i < size; ++i) {
-        randomValue1 = rand();
-        randomValue2 = rand();
+
+        do{
+            randomValue1 = rand();
+            randomValue2 = rand();
+        } while (randomValue1 == randomValue2)
+        
         f[i] = f[i] ^ randomValue1 ^ randomValue2;
     }
 
