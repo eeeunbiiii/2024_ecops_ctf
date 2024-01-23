@@ -1,0 +1,53 @@
+#include <iostream>
+#include <cstring>
+#include <Windows.h>
+
+int sv[7] = { 67, 84, 70, 50, 48, 50, 52 };
+
+int checkDebugger() {
+    return IsDebuggerPresent();
+}
+
+int h(int* f, size_t size) {
+    if (checkDebugger()) {
+        std::cout << "Exiting..." << std::endl;
+        return 0;
+    }
+
+    for (size_t i = 0; i < size; ++i) {
+        f[i] ^= 'X';
+    }
+
+    return 1;
+}
+
+void m() {
+    char user_input[256];
+    int a[7];
+    std::memcpy(a, sv, sizeof(int) * 7);
+
+    while (true) {
+        std::cout << "Enter the flag (Type 'exit' to quit)" << std::endl;
+        std::cin >> user_input;
+
+        if (strcmp(user_input, "exit") == 0 || strcmp(user_input, "Exit") == 0) {
+            break;
+        }
+
+        if (h(a, sizeof(a) / sizeof(a[0]))) {
+            for (size_t i = 0; i < sizeof(a) / sizeof(a[0]); ++i) {
+                std::cout << static_cast<char>(a[i]) << " ";
+            }
+            std::cout << std::endl;
+            break;
+        } else {
+            break;
+        }
+    }
+}
+
+int main() {
+    m();
+
+    return 0;
+}
